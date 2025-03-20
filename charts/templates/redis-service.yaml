@@ -1,0 +1,24 @@
+{{- if eq .Values.distributed "true" }}
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: redis
+  name: redis
+  {{ if eq .Values.createNamespace "true" }}
+  namespace: {{ .Values.namespace }}
+  {{ end }}
+spec:
+  ports:
+    - name: "redis"
+      port: {{ .Values.redis.port }}
+      targetPort: 6379
+    - name: "rediss"
+      port: {{ .Values.redis.securePort }}
+      targetPort: 6380
+    - name: "http-ui"
+      port: {{ .Values.redis.uiPort }}
+      targetPort: 8001
+  selector:
+    name: redis
+{{- end }}
