@@ -1,8 +1,0 @@
-{{- if .Values.createNamespace -}}
-apiVersion: v1
-kind: Namespace
-metadata:
-  labels:
-    {{- include "smartflows.labels" . | nindent 4 }}
-  name: {{ include "smartflows.namespace" . }}
-{{- end }}
