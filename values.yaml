@@ -1,0 +1,92 @@
+# Default values for smartflows.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+createNamespace: true
+
+image:
+  repository: experlogix.azurecr.io/smartflows
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+  
+imageCredentials:
+  registry: ""
+  username: ""
+  password: ""
+
+# If the server is 'sqlserver' the chart will create a deployment to host SQL Server inside the cluster.
+sqlServer:
+  server: "sqlserver"
+  username: "sa"
+  password: "1Q2w3e!r5t6y"
+
+smartflows:
+  replicaCount: 1
+  service:
+    type: ClusterIP
+    port: 8080
+  settings:
+    project:
+      datasource:
+        jdbc-url: jdbc:sqlserver://sqlserver;database=master
+        username: sa
+        password: 1Q2w3e!r5t6y
+        minimumIdle: 5
+        idleTimeout: 30000
+        connection-timeout: 60000
+
+redis:
+  image: "redis/redis-stack:latest"  
+  port: "6379"
+  securePort: "6380"
+  uiPort: "8001"
+
+blobStorage:
+  accountName: ""
+  accountKey: ""
+  containerName: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
