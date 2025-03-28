@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "createNamespace": true,
+  "deploySample": true,
+  "global": {
+     "imageRegistry": "xpertdocdev.azurecr.io",
+     "imagePullSecrets": {
+        "username": "",
+        "password": ""
+     }
+  },
+  "image": {
+     "pullPolicy": "IfNotPresent",
+     "tag": "master"
+  },
+  "sqlServer": {
+     "server": "sqlserver",
+     "database": "xt_one_subscriptions",
+     "username": "sa",
+     "password": ""
+  },
+  "dataLake": {
+     "accountName": "",
+     "accountKey": ""
+  },
+  "documents": {
+     "web": {
+        "replicaCount": 1,
+        "service": {
+           "type": "ClusterIP",
+           "port": 80
+        },
+        "image": {
+           "repository": "xpertdoc/one/web"
+        },
+        "settings": {
+           "startup": {
+              "databaseServer": {
+                 "waitTimeout": "00:00:30",
+                 "waitUntilReady": "true"
+              }
+           }
+        },
+        "resources": {
+           "limits": {
+              "memory": "1Gi"
+           }
+        }
+     },
+     "spa": {
+        "replicaCount": 1,
+        "service": {
+           "type": "ClusterIP",
+           "port": 80
+        },
+        "image": {
+           "repository": "xpertdoc/one/web/spa"
+        },
+        "resources": {}
+     },
+     "reverseproxy": {
+        "replicaCount": 1,
+        "service": {
+           "type": "ClusterIP",
+           "port": 80
+        },
+        "image": {
+           "repository": "xpertdoc/one/reverseproxy"
+        },
+        "resources": {
+           "limits": {
+              "memory": "256Mi"
+           }
+        }
+     },
+     "events": {
+        "replicaCount": 1,
+        "service": {
+           "type": "ClusterIP",
+           "port": 80
+        },
+        "image": {
+           "repository": "xpertdoc/one/events/web"
+        },
+        "resources": {
+           "limits": {
+              "memory": "256Mi"
+           }
+        }
+     },
+     "wopi": {
+        "replicaCount": 1,
+        "service": {
+           "type": "ClusterIP",
+           "port": 80
+        },
+        "image": {
+           "repository": "xpertdoc/one/wopi/web"
+        },
+        "resources": {
+           "limits": {
+              "memory": "512Mi"
+           }
+        }
+     },
+     "officeaddin": {
+        "replicaCount": 1,
+        "service": {
+           "type": "ClusterIP",
+           "port": 80
+        },
+        "image": {
+           "repository": "xpertdoc/one/office/addin/web"
+        },
+        "resources": {
+           "limits": {
+              "memory": "256Mi"
+           }
+        }
+     },
+     "officeaddinspa": {
+        "replicaCount": 1,
+        "service": {
+           "type": "ClusterIP",
+           "port": 80
+        },
+        "image": {
+           "repository": "xpertdoc/one/office/addin/web/spa"
+        },
+        "resources": {
+           "limits": {
+              "memory": "256Mi"
+           }
+        }
+     },
+     "odata": {
+        "replicaCount": 1,
+        "service": {
+           "type": "ClusterIP",
+           "port": 80
+        },
+        "image": {
+           "repository": "xpertdoc/one/odata/web"
+        },
+        "resources": {
+           "limits": {
+              "memory": "512Mi"
+           }
+        }
+     },
+     "sample": {
+        "replicaCount": 1,
+        "image": {
+           "repository": "xpertdoc/one/sample"
+        },
+        "service": {
+           "type": "ClusterIP",
+           "port": 80
+        },
+        "resources": {}
+     }
+  },
+  "nameOverride": "",
+  "fullnameOverride": "",
+  "namespaceOverride": "",
+  "podAnnotations": {},
+  "podSecurityContext": {},
+  "securityContext": {},
+  "nodeSelector": {},
+  "tolerations": [],
+  "affinity": {}
+}
